@@ -34,24 +34,32 @@ Counts process_file(FILE *fp) {
 
     int ch = 0;
     int mark_word = 0;
+    char buffer[BUFFER_SIZE];
+    size_t bf;
 
-    while((ch = fgetc(fp)) != EOF) {
-        cnt.bytes++;
+    while((bf = fread(buffer,1, BUFFER_SIZE, fp)) > 0) {
 
-        if(ch == '\n') {
-            cnt.lines++;
+        for(size_t i=0; i <= bf; i++){
+            ch = buffer[i];
+            cnt.bytes++;
+
+            if (ch == '\n')
+            {
+                cnt.lines++;
+            }
+
+            if (isspace(ch))
+            {
+                mark_word = 0;
+            }
+            else if (!mark_word)
+            {
+                cnt.words++;
+                mark_word = 1;
+            }
         }
-        
-        if(isspace(ch)) {
-            mark_word = 0;
-        } else if(!mark_word) {
-            cnt.words++;
-            mark_word = 1;
-        }
-        
-        
+        cnt.lines++;
     }
-    cnt.lines++;
 
     return cnt;
 
