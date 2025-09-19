@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/wc_clone.dir/link.d CMakeFiles/wc_clone.dir/src/main.c.o CMakeFiles/wc_clone.dir/src/wc.c.o -o wc_clone
